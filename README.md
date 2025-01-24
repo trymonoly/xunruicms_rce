@@ -36,6 +36,9 @@ Thus, the exploit is:<br>
 <br>###Dynamic Analysis:<br>
 If the SQL query is successfully executed, the rest of the process proceeds smoothly.<br>
 The function is used to write to , achieving Remote Code Execution (RCE).file_put_contentsdatabase.php<br>
+![image](https://github.com/trymonoly/xunruicms_rce/blob/main/%E5%9B%BE%E7%89%878.png)
+![image](https://github.com/trymonoly/xunruicms_rce/blob/main/%E5%9B%BE%E7%89%879.png)
+![image](https://github.com/trymonoly/xunruicms_rce/blob/main/%E5%9B%BE%E7%89%8710.png)
 ###Proof of Concept (PoC):<br>
 ```
 POST /index.php?c=install&m=index&is_install_db=0&step=2 HTTP/1.1
