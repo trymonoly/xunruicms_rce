@@ -12,10 +12,14 @@ The RCE is connected through the CMS installation interface
 Normal installation of .database.php
 During installation, the process immediately jumps to step 3.
 File After Successful Exploitation:
+![image](https://github.com/trymonoly/xunruicms_rce/blob/main/%E5%9B%BE%E7%89%871.png)
+![image](https://github.com/trymonoly/xunruicms_rce/blob/main/%E5%9B%BE%E7%89%872.png)
+![image](https://github.com/trymonoly/xunruicms_rce/blob/main/%E5%9B%BE%E7%89%873.png)
+![image](https://github.com/trymonoly/xunruicms_rce/blob/main/%E5%9B%BE%E7%89%874.png)
 The file after exploitation shows how the vulnerability is exploited.
-Code Analysis:
-In tracing the code, it is found that the issue occurs when writing to . The variable is set to the database name provided by the user, which is controllable.database.php$data['db_name']
 
+#Code Analysis:
+In tracing the code, it is found that the issue occurs when writing to . The variable is set to the database name provided by the user, which is controllable.database.php$data['db_name']
 However, bypassing the database creation query is required.
 
 ###Code Flow:
