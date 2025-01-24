@@ -19,7 +19,12 @@ File After Successful Exploitation:
 The file after exploitation shows how the vulnerability is exploited.
 
 #Code Analysis:
-In tracing the code, it is found that the issue occurs when writing to . The variable is set to the database name provided by the user, which is controllable.database.php$data['db_name']
+In tracing the code, it is found that the issue occurs when writing to . 
+
+![image](https://github.com/trymonoly/xunruicms_rce/blob/main/%E5%9B%BE%E7%89%875.png)
+![image](https://github.com/trymonoly/xunruicms_rce/blob/main/%E5%9B%BE%E7%89%876.png)
+![image](https://github.com/trymonoly/xunruicms_rce/blob/main/%E5%9B%BE%E7%89%877.png)
+The variable is set to the database name provided by the user, which is controllable.database.php$data['db_name']
 However, bypassing the database creation query is required.
 
 ###Code Flow:
