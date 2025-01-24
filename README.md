@@ -32,7 +32,8 @@ The code checks for the support of the MySQLi component and attempts to connect 
 The second checks if the entered database name exists. If not, it executes an unfiltered SQL statement. At this point, entering a new database name can bypass the detection, allowing an SQL query to be executed.elseifCREATE TABLE<br>
 Thus, the exploit is:<br>
 ```exp;-- ---'];phpinfo();['```
-###Dynamic Analysis:<br>
+
+<br>###Dynamic Analysis:<br>
 If the SQL query is successfully executed, the rest of the process proceeds smoothly.<br>
 The function is used to write to , achieving Remote Code Execution (RCE).file_put_contentsdatabase.php<br>
 ###Proof of Concept (PoC):<br>
